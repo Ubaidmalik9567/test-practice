@@ -27,16 +27,16 @@ stages:
       outs: 
       - .\models\
 
-  # visualization:
-  #     cmd: python .\src\visualization\visualize.py  .\models\model.pkl .\dataa\processed\
-  #     deps: 
-  #     - .\src\visualization\visualize.py
-  #     - .\models\model.pkl
-  #     - .\dataa\processed\
-  #     - params.yaml
-  #     params:
-  #     - visualization.model_path
-  #     - visualization.file_path
-  #     outs:
-  #     - dvclive
+  visualization:
+      cmd: python .\src\visualization\visualize.py  .\models\model.pkl .\dataa\processed\
+      deps: 
+      - .\src\visualization\visualize.py
+      - .\models\model.pkl
+      - .\dataa\processed\
+      - params.yaml
+      params:
+      - visualization.model_path
+      - visualization.file_path
+      outs:
+      - dvclive
 
