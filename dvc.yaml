@@ -1,0 +1,42 @@
+stages:
+  make_dataset:
+    # cmd have 2 must 1st language_name 2nd file_name left are system argument
+    cmd: python .\src\data\make_dataset.py .\dataa\raw\creditcard.csv
+    deps: # dependences
+    - .\src\data\make_dataset.py
+    - .\dataa\raw\creditcard.csv
+    - params.yaml
+    params:
+    - make_dataset.dataset_path
+    - make_dataset.test_split_size
+    - make_dataset.seed
+    outs: # output file location\save_dirPath
+    - .\dataa\processed\
+    
+  train_model:
+      cmd: python .\src\models\train_model.py .\dataa\processed\
+      deps: 
+      - .\src\models\train_model.py 
+      - .\dataa\processed\
+      - params.yaml
+      params:
+      - train_model.file_path
+      - train_model.seed
+      - train_model.n_estimators
+      - train_model.max_depth
+      outs: 
+      - .\models\
+
+  # visualization:
+  #     cmd: python .\src\visualization\visualize.py  .\models\model.pkl .\dataa\processed\
+  #     deps: 
+  #     - .\src\visualization\visualize.py
+  #     - .\models\model.pkl
+  #     - .\dataa\processed\
+  #     - params.yaml
+  #     params:
+  #     - visualization.model_path
+  #     - visualization.file_path
+  #     outs:
+  #     - dvclive
+

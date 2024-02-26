@@ -1,0 +1,56 @@
+schema: '2.0'
+stages:
+  make_dataset:
+    cmd: python .\src\data\make_dataset.py .\dataa\raw\creditcard.csv
+    deps:
+    - path: .\dataa\raw\creditcard.csv
+      hash: md5
+      md5: a59e72e2f17ff6fa4e3f444f659c083f
+      size: 358039
+    - path: .\src\data\make_dataset.py
+      hash: md5
+      md5: 74dbc17bacd6cff649579b4612dc0539
+      size: 3204
+    - path: params.yaml
+      hash: md5
+      md5: 26421f38e36f91421115dfd154b2c579
+      size: 258
+    params:
+      params.yaml:
+        make_dataset.dataset_path: \dataa\raw\creditcard.csv
+        make_dataset.seed: 32
+        make_dataset.test_split_size: 0.2
+    outs:
+    - path: .\dataa\processed\
+      hash: md5
+      md5: 6ffbaaad7b4ac6e1afabed19a80b2560.dir
+      size: 0
+      nfiles: 1
+  train_model:
+    cmd: python .\src\models\train_model.py .\dataa\processed\
+    deps:
+    - path: .\dataa\processed\
+      hash: md5
+      md5: 6ffbaaad7b4ac6e1afabed19a80b2560.dir
+      size: 0
+      nfiles: 1
+    - path: .\src\models\train_model.py
+      hash: md5
+      md5: 8e9ac944e9a142312ec25c0d4315227d
+      size: 1994
+    - path: params.yaml
+      hash: md5
+      md5: 26421f38e36f91421115dfd154b2c579
+      size: 258
+    params:
+      params.yaml:
+        train_model.file_path: \dataa\processed\
+        train_model.max_depth: 4
+        train_model.n_estimators: 9
+        train_model.seed: 21
+    outs:
+    - path: .\models\
+      hash: md5
+      md5: 6ffbaaad7b4ac6e1afabed19a80b2560.dir
+      size: 0
+      nfiles: 1
